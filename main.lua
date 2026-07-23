@@ -19,6 +19,7 @@ define_tile_code("forcefield_horizontal")
 set_pre_tile_code_callback(function(x, y, layer)
 	local uid = spawn_grid_entity(ENT_TYPE.FLOOR_HORIZONTAL_FORCEFIELD, x, y, layer)
 	local ent = get_entity(uid)
+	ent.flags = clr_flag(ent.flags, ENT_FLAG.TAKE_NO_DAMAGE)
 	ent.angle = 3 * math.pi / 2
 	return true
 end, "forcefield_horizontal")
@@ -27,6 +28,7 @@ define_tile_code("forcefield_horizontal_top")
 set_pre_tile_code_callback(function(x, y, layer)
 	local uid = spawn_grid_entity(ENT_TYPE.FLOOR_HORIZONTAL_FORCEFIELD_TOP, x, y, layer)
 	local ent = get_entity(uid)
+	ent.flags = clr_flag(ent.flags, ENT_FLAG.TAKE_NO_DAMAGE)
 	ent.angle = 3 * math.pi / 2
 	return true
 end, "forcefield_horizontal_top")
@@ -124,7 +126,9 @@ end, ON.PRE_LOAD_LEVEL_FILES)
 
 -- After level is built, scan for liquid surfaces and start bubble spawning
 set_callback(function()
-	if not feeling_active then return end
+	if not feeling_active then
+		return
+	end
 	init_bubble_surface_locations()
 	clear_callback(gameframe_cb)
 	gameframe_cb = set_callback(bubble_spawning_update, ON.GAMEFRAME)
