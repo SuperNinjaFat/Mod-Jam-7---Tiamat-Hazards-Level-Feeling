@@ -120,7 +120,7 @@ set_callback(function(ctx)
 	if get_local_prng():random_chance(options.chance, PRNG_CLASS.LEVEL_GEN) then
 		feeling_active = true
 		ctx:add_level_files({ "bubbleonarea.lvl" })
-		toast("Tiamat's influence seeps through the walls...")
+		toast("It somehow feels humid all of the sudden...")
 	end
 end, ON.PRE_LOAD_LEVEL_FILES)
 
